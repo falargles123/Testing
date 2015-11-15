@@ -6,4 +6,5 @@ word-wrap : normal;
   text-align : center;
   color : rgb(0,195,249);
    -webkit-text-stroke: 3px black;
+   font-size : 48px;
 }
