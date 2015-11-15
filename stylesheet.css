@@ -1,3 +1,7 @@
 * {
 word-wrap : normal;
 }
+
+#title {
+  text-align : center;
+}
