@@ -1,10 +1,999 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-  <link href = "stylesheet.css" rel = "stylesheet">
+  <meta charset="utf-8">
+  <title>Happy Fun Times</title>
+  <style>
+    #game {
+      border : 1px solid black;
+      width : 300px;
+      height : 300px;
+      position : absolute;
+      left : 50%;
+      -webkit-transform: translateX(-150px);
+      margin : 50px 0px 0px 0px;
+    }
+    #bob {
+      width : 10px;
+      height : 10px;
+      background-color : red;
+      margin : 0px 0px 0px 0px;
+      left : 0px;
+      top : 0px;
+      position : absolute;
+    }
+    #title {
+      background-color : rgb(50,50,50);
+      color : red;
+      text-align : center;
+      width : 100%;
+      margin : 0px 0px 0px 0px;
+    }
+    #instruct {
+      text-align : center;
+      position : relative;
+      width : 100%;
+      top : 400px;
+      margin : 0px 0px 0px 0px;
+    }
+    
+    #enemy {
+      background-color : blue;
+      left : 290px;
+      position : absolute;
+      top : 290px;
+      width : 10px;
+      height : 10px;
+      margin : 0px 0px 0px 0px;
+      visibility : hidden;
+    }
+    #start {
+      width : 100%;
+      height : 100%;
+      background-color : rgb(0,0,0);
+      z-index : 2;
+      position : absolute;
+      opacity : 0.75;
+    }
+    #startbtn {
+      position : absolute;
+      z-index : 3;
+      background-color : white;
+      width : 150px;
+      height : 30px;
+      top : 200px;
+      left : 75px;
+      border : 2px outset rgb(100,100,100);
+    }
+    #startbtn:hover {
+      background-color : gray;
+    }
+    #starttxt {
+      width : 100%;
+      position : absolute;
+      z-index : 3;
+      text-align : center;
+      color : white;
+      top : 50px;
+    }
+    #thug {
+      height : 10px;
+      width : 10px;
+      background-color : green;
+      position : absolute;
+      left : 290px;
+      top : 0px;
+      margin : 0px 0px 0px 0px;
+      visibility : hidden;
+    }
+    #thug2 {
+      height : 10px;
+      width : 10px;
+      background-color : yellow;
+      position : absolute;
+      left : 0px;
+      top : 290px;
+      margin : 0px 0px 0px 0px;
+      visibility : hidden;
+    }
+        #thug3 {
+      height : 10px;
+      width : 10px;
+      background-color : purple;
+      position : absolute;
+      left : 140px;
+      top : 290px;
+      margin : 0px 0px 0px 0px;
+      visibility : hidden;
+    }
+        #thug4 {
+      height : 10px;
+      width : 10px;
+      background-color : pink;
+      position : absolute;
+      left : 140px;
+      top : 0px;
+      margin : 0px 0px 0px 0px;
+      visibility : hidden;
+    }
+        #thug5 {
+      height : 10px;
+      width : 10px;
+      background-color : orange;
+      position : absolute;
+      left : 0px;
+      top : 140px;
+      margin : 0px 0px 0px 0px;
+      visibility : hidden;
+    }
+        #thug6 {
+      height : 10px;
+      width : 10px;
+      background-color : brown;
+      position : absolute;
+      left : 290px;
+      top : 140px;
+      margin : 0px 0px 0px 0px;
+      visibility : hidden;
+    }
+  </style>
 </head>
-
 <body>
-<h1 id="title"> This is a test, and nothing but a test. </h1>
+  <h1 id="title"> Bob the red square! </h1>
+  <div id="game">
+    <div id="start">
+      <button type="button" id="startbtn" onclick="activateGame()"> Release the Bob!</button>
+      <h1 id="starttxt"> Start Game</h1>
+    </div>
+<div id="bob">
+  </div>
+    <div id="enemy">
+    </div>
+    <div id="thug">
+    </div>
+    <div id="thug2">
+    </div>
+    <div id="thug3">
+    </div>
+    <div id="thug4">
+    </div>
+    <div id="thug5">
+    </div>
+    <div id="thug6">
+    </div>
+  </div>
+  <h3 id="instruct"> Use the arrow keys to move Bob the square around the map! Watch out for Harris and his thugs though, they will kill Bob.</h3>
+  <audio name="media" loop="" id="overworld"><source src="http://c4.rbxcdn.com/5cdd80d08af3cbd78bc087457dfd4c5c" type="audio/mpeg"></audio>
+  <audio name="media" id="coin"><source src="http://c3.rbxcdn.com/10a800f80763a51f2e7a7687758e600e" type="audio/mpeg"></audio>
+  <audio name="media" id="death"><source src="http://c0.rbxcdn.com/d51e2fa41e07831a09e5ebc2c046fc5e" type="audio/mpeg"></audio>
+  <script>
+    var debounce = false;
+    var gameIsActive = false;
+    var thug1 = 10;
+    var thug2 = 20;
+    var thug3 = 30;
+    var thug4 = 40;
+    var thug5 = 50;
+    var thug6 = 60;
+    var thug1Allow = false;
+    var thug2Allow = false;
+    var thug3Allow = false;
+    var thug4Allow = false;
+    var thug5Allow = false;
+    var thug6Allow = false;
+    var counter = 0
+    document.onkeydown = function testKey(k) {
+      if (debounce === false && gameIsActive === true) {
+        debounce = true;
+      var bob = document.getElementById("bob");
+      var bobTop = getComputedStyle(bob).getPropertyValue('top');
+      var bobLeft = getComputedStyle(bob).getPropertyValue('left');
+    if (k.keyCode === 39 && parseInt(bobLeft,10) + 10 < 300) {
+      bob.style.left = (parseInt(bobLeft,10) +10) + "px";
+    } else if (k.keyCode === 40 && parseInt(bobTop,10) + 10 < 300) {
+      bob.style.top = (parseInt(bobTop,10) +10) + "px";
+    } else if (k.keyCode === 38 && parseInt(bobTop,10) - 10 > -10) {
+      bob.style.top = (parseInt(bobTop,10) -10) + "px";
+    } else if (k.keyCode === 37  && parseInt(bobLeft,10) - 10 > -10) {
+      bob.style.left = (parseInt(bobLeft,10) -10) + "px";
+    }
+    setTimeout(function debouncer() {debounce = false;},50);
+    }
+    }
+    
+    setInterval(function enemyMove() { 
+      if (gameIsActive === true) {
+      var enemy = document.getElementById("enemy");
+      var bob = document.getElementById("bob");
+      var bobTop = getComputedStyle(bob).getPropertyValue('top');
+      var bobLeft = getComputedStyle(bob).getPropertyValue('left');
+      var enemyLeft = (Math.floor(Math.random() * 2));
+      var enemyTop = (Math.floor(Math.random() * 2));
+      var isLeftOrTop = (Math.floor(Math.random() * 2));
+      var enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        var enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      switch (isLeftOrTop) {
+        case 0 :
+          switch (enemyLeft) {
+            case 0 :
+              if (parseInt(enemyLeftCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyLeftCSS,10) - 10 > -10) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+        case 1 :
+                    switch (enemyTop) {
+            case 0 :
+              if (parseInt(enemyTopCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyTopCSS,10) - 10 > - 10) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+          break;
+      }
+              enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      if (parseInt(bobTop,10) === parseInt(enemyTopCSS,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS,10)) {
+        console.log("Game over"); //game over section
+        console.log(bobTop + " " + bobLeft + " " + enemyTopCSS + " " + enemyLeftCSS);
+        gameIsActive = false;
+      var text = document.getElementById("starttxt")
+      var btn = document.getElementById("startbtn")
+      var back = document.getElementById("start")
+      var music = document.getElementById("overworld");
+      var death = document.getElementById("death");
+      var thugElement1 = document.getElementById("thug");
+      var thugElement2 = document.getElementById("thug2");
+      var thugElement3 = document.getElementById("thug3");
+      var thugElement4 = document.getElementById("thug4");
+      var thugElement5 = document.getElementById("thug5");
+      var thugElement6 = document.getElementById("thug6");
+      bob.style.top = "0px";
+      bob.style.left = "0px";
+      enemy.style.left = "290px";
+      enemy.style.top = "290px";
+        enemy.style.visibility = "hidden";
+      text.style.visibility = "visible";
+      btn.style.visibility = "visible";
+      back.style.visibility = "visible";
+      text.innerHTML = "Harris killed bob. Game Over!";
+      btn.innerHTML = "Revive Bob!";
+      thugElement1.style.visibility = "hidden";
+      thugElement1.style.left = "290px";
+      thugElement1.style.top = "0px";
+      thugElement2.style.visibility = "hidden";
+      thugElement2.style.left = "0px";
+      thugElement2.style.top = "290px";
+      thugElement3.style.visibility = "hidden";
+      thugElement3.style.left = "140px";
+      thugElement3.style.top = "290px";
+      thugElement4.style.visibility = "hidden";
+      thugElement4.style.left = "140px";
+      thugElement4.style.top = "0px";
+      thugElement5.style.visibility = "hidden";
+      thugElement5.style.left = "0px";
+      thugElement5.style.top = "140px";
+      thugElement6.style.visibility = "hidden";
+      thugElement6.style.left = "290px";
+      thugElement6.style.top = "140px";
+      music.pause();
+      music.currentTime = 0;
+      death.play();
+      counter = 0;
+    thug1Allow = false;
+    thug2Allow = false;
+    thug3Allow = false;
+    thug4Allow = false;
+    thug5Allow = false;
+    thug6Allow = false;
+      //end game over section
+      }
+      }
+                                 },75);
+    function activateGame() {
+      gameIsActive = true;
+      var music = document.getElementById("overworld");
+      var startsfx = document.getElementById("coin");
+      var text = document.getElementById("starttxt");
+      var btn = document.getElementById("startbtn");
+      var back = document.getElementById("start");
+      text.style.visibility = "hidden";
+      btn.style.visibility = "hidden";
+      back.style.visibility = "hidden";
+      music.play();
+      startsfx.play();
+    }
+    
+    function addThugs() {
+      if (gameIsActive === true) {
+      counter++
+      var thugElement1 = document.getElementById("thug");
+      var thugElement2 = document.getElementById("thug2");
+      var thugElement3 = document.getElementById("thug3");
+      var thugElement4 = document.getElementById("thug4");
+      var thugElement5 = document.getElementById("thug5");
+      var thugElement6 = document.getElementById("thug6");
+      if (counter === thug1) {
+        thugElement1.style.visibility = "visible";
+        thug1Allow = true;
+      } else if (counter === thug2) {
+        thugElement2.style.visibility = "visible";
+        thug2Allow = true;
+      } else if (counter === thug3) {
+        thugElement3.style.visibility = "visible";
+        thug3Allow = true;
+      } else if (counter === thug4) {
+        thugElement4.style.visibility = "visible";
+        thug4Allow = true;
+      } else if (counter === thug5) {
+        thugElement5.style.visibility = "visible";
+        thug5Allow = true;
+      } else if (counter === thug6) {
+        thugElement6.style.visibility = "visible";
+        thug6Allow = true;
+      } 
+    }
+    }
+    setInterval(addThugs,1000);
+        
+    
+    setInterval(function thug1Move() { 
+      if (gameIsActive === true && thug1Allow === true) {
+      var enemy = document.getElementById("thug");
+      var bob = document.getElementById("bob");
+      var bobTop = getComputedStyle(bob).getPropertyValue('top');
+      var bobLeft = getComputedStyle(bob).getPropertyValue('left');
+      var enemyLeft = (Math.floor(Math.random() * 2));
+      var enemyTop = (Math.floor(Math.random() * 2));
+      var isLeftOrTop = (Math.floor(Math.random() * 2));
+      var enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        var enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      switch (isLeftOrTop) {
+        case 0 :
+          switch (enemyLeft) {
+            case 0 :
+              if (parseInt(enemyLeftCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyLeftCSS,10) - 10 > -10) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+        case 1 :
+                    switch (enemyTop) {
+            case 0 :
+              if (parseInt(enemyTopCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyTopCSS,10) - 10 > - 10) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+          break;
+      }
+              enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      if (parseInt(bobTop,10) === parseInt(enemyTopCSS,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS,10)) {
+        console.log("Game over"); //game over section
+        console.log(bobTop + " " + bobLeft + " " + enemyTopCSS + " " + enemyLeftCSS);
+        gameIsActive = false;
+      var text = document.getElementById("starttxt")
+      var btn = document.getElementById("startbtn")
+      var back = document.getElementById("start")
+      var music = document.getElementById("overworld");
+      var death = document.getElementById("death");
+      var thugElement1 = document.getElementById("thug");
+      var thugElement2 = document.getElementById("thug2");
+      var thugElement3 = document.getElementById("thug3");
+      var thugElement4 = document.getElementById("thug4");
+      var thugElement5 = document.getElementById("thug5");
+      var thugElement6 = document.getElementById("thug6");
+      var harris = document.getElementById("enemy");
+      bob.style.top = "0px";
+      bob.style.left = "0px";
+      text.style.visibility = "visible";
+      btn.style.visibility = "visible";
+      back.style.visibility = "visible";
+      text.innerHTML = "One of Harris's thugs killed Bob!";
+      btn.innerHTML = "Revive Bob!";
+      thugElement1.style.visibility = "hidden";
+      thugElement1.style.left = "290px";
+      thugElement1.style.top = "0px";
+      thugElement2.style.visibility = "hidden";
+      thugElement2.style.left = "0px";
+      thugElement2.style.top = "290px";
+      thugElement3.style.visibility = "hidden";
+      thugElement3.style.left = "140px";
+      thugElement3.style.top = "290px";
+      thugElement4.style.visibility = "hidden";
+      thugElement4.style.left = "140px";
+      thugElement4.style.top = "0px";
+      thugElement5.style.visibility = "hidden";
+      thugElement5.style.left = "0px";
+      thugElement5.style.top = "140px";
+      thugElement6.style.visibility = "hidden";
+      thugElement6.style.left = "290px";
+      thugElement6.style.top = "140px";
+      harris.style.visibility = "hidden";
+      harris.style.top = "290px";
+      harris.style.left = "290px";
+      music.pause();
+      music.currentTime = 0;
+      death.play();
+      counter = 0;
+    thug1Allow = false;
+    thug2Allow = false;
+    thug3Allow = false;
+    thug4Allow = false;
+    thug5Allow = false;
+    thug6Allow = false;
+      //end game over section
+      }
+      } 
+      },75);
+    
+        setInterval(function thug2Move() { 
+      if (gameIsActive === true && thug2Allow === true) {
+      var enemy = document.getElementById("thug2");
+      var bob = document.getElementById("bob");
+      var bobTop = getComputedStyle(bob).getPropertyValue('top');
+      var bobLeft = getComputedStyle(bob).getPropertyValue('left');
+      var enemyLeft = (Math.floor(Math.random() * 2));
+      var enemyTop = (Math.floor(Math.random() * 2));
+      var isLeftOrTop = (Math.floor(Math.random() * 2));
+      var enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        var enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      switch (isLeftOrTop) {
+        case 0 :
+          switch (enemyLeft) {
+            case 0 :
+              if (parseInt(enemyLeftCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyLeftCSS,10) - 10 > -10) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+        case 1 :
+                    switch (enemyTop) {
+            case 0 :
+              if (parseInt(enemyTopCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyTopCSS,10) - 10 > - 10) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+          break;
+      }
+              enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      if (parseInt(bobTop,10) === parseInt(enemyTopCSS,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS,10)) {
+        console.log("Game over"); //game over section
+        console.log(bobTop + " " + bobLeft + " " + enemyTopCSS + " " + enemyLeftCSS);
+        gameIsActive = false;
+      var text = document.getElementById("starttxt")
+      var btn = document.getElementById("startbtn")
+      var back = document.getElementById("start")
+      var music = document.getElementById("overworld");
+      var death = document.getElementById("death");
+      var thugElement1 = document.getElementById("thug");
+      var thugElement2 = document.getElementById("thug2");
+      var thugElement3 = document.getElementById("thug3");
+      var thugElement4 = document.getElementById("thug4");
+      var thugElement5 = document.getElementById("thug5");
+      var thugElement6 = document.getElementById("thug6");
+      var harris = document.getElementById("enemy");
+      bob.style.top = "0px";
+      bob.style.left = "0px";
+      text.style.visibility = "visible";
+      btn.style.visibility = "visible";
+      back.style.visibility = "visible";
+      text.innerHTML = "One of Harris's thugs killed Bob!";
+      btn.innerHTML = "Revive Bob!";
+      thugElement1.style.visibility = "hidden";
+      thugElement1.style.left = "290px";
+      thugElement1.style.top = "0px";
+      thugElement2.style.visibility = "hidden";
+      thugElement2.style.left = "0px";
+      thugElement2.style.top = "290px";
+      thugElement3.style.visibility = "hidden";
+      thugElement3.style.left = "140px";
+      thugElement3.style.top = "290px";
+      thugElement4.style.visibility = "hidden";
+      thugElement4.style.left = "140px";
+      thugElement4.style.top = "0px";
+      thugElement5.style.visibility = "hidden";
+      thugElement5.style.left = "0px";
+      thugElement5.style.top = "140px";
+      thugElement6.style.visibility = "hidden";
+      thugElement6.style.left = "290px";
+      thugElement6.style.top = "140px";
+      harris.style.visibility = "hidden";
+      harris.style.top = "290px";
+      harris.style.left = "290px";
+      music.pause();
+      music.currentTime = 0;
+      death.play();
+      counter = 0;
+    thug1Allow = false;
+    thug2Allow = false;
+    thug3Allow = false;
+    thug4Allow = false;
+    thug5Allow = false;
+    thug6Allow = false;
+      //end game over section
+      }
+      } 
+      },75);
+    
+            setInterval(function thug3Move() { 
+      if (gameIsActive === true && thug3Allow === true) {
+      var enemy = document.getElementById("thug3");
+      var bob = document.getElementById("bob");
+      var bobTop = getComputedStyle(bob).getPropertyValue('top');
+      var bobLeft = getComputedStyle(bob).getPropertyValue('left');
+      var enemyLeft = (Math.floor(Math.random() * 2));
+      var enemyTop = (Math.floor(Math.random() * 2));
+      var isLeftOrTop = (Math.floor(Math.random() * 2));
+      var enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        var enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      switch (isLeftOrTop) {
+        case 0 :
+          switch (enemyLeft) {
+            case 0 :
+              if (parseInt(enemyLeftCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyLeftCSS,10) - 10 > -10) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+        case 1 :
+                    switch (enemyTop) {
+            case 0 :
+              if (parseInt(enemyTopCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyTopCSS,10) - 10 > - 10) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+          break;
+      }
+              enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      if (parseInt(bobTop,10) === parseInt(enemyTopCSS,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS,10)) {
+        console.log("Game over"); //game over section
+        console.log(bobTop + " " + bobLeft + " " + enemyTopCSS + " " + enemyLeftCSS);
+        gameIsActive = false;
+      var text = document.getElementById("starttxt")
+      var btn = document.getElementById("startbtn")
+      var back = document.getElementById("start")
+      var music = document.getElementById("overworld");
+      var death = document.getElementById("death");
+      var thugElement1 = document.getElementById("thug");
+      var thugElement2 = document.getElementById("thug2");
+      var thugElement3 = document.getElementById("thug3");
+      var thugElement4 = document.getElementById("thug4");
+      var thugElement5 = document.getElementById("thug5");
+      var thugElement6 = document.getElementById("thug6");
+      var harris = document.getElementById("enemy");
+      bob.style.top = "0px";
+      bob.style.left = "0px";
+      text.style.visibility = "visible";
+      btn.style.visibility = "visible";
+      back.style.visibility = "visible";
+      text.innerHTML = "One of Harris's thugs killed Bob!";
+      btn.innerHTML = "Revive Bob!";
+      thugElement1.style.visibility = "hidden";
+      thugElement1.style.left = "290px";
+      thugElement1.style.top = "0px";
+      thugElement2.style.visibility = "hidden";
+      thugElement2.style.left = "0px";
+      thugElement2.style.top = "290px";
+      thugElement3.style.visibility = "hidden";
+      thugElement3.style.left = "140px";
+      thugElement3.style.top = "290px";
+      thugElement4.style.visibility = "hidden";
+      thugElement4.style.left = "140px";
+      thugElement4.style.top = "0px";
+      thugElement5.style.visibility = "hidden";
+      thugElement5.style.left = "0px";
+      thugElement5.style.top = "140px";
+      thugElement6.style.visibility = "hidden";
+      thugElement6.style.left = "290px";
+      thugElement6.style.top = "140px";
+      harris.style.visibility = "hidden";
+      harris.style.top = "290px";
+      harris.style.left = "290px";
+      music.pause();
+      music.currentTime = 0;
+      death.play();
+      counter = 0;
+    thug1Allow = false;
+    thug2Allow = false;
+    thug3Allow = false;
+    thug4Allow = false;
+    thug5Allow = false;
+    thug6Allow = false;
+      //end game over section
+      }
+      } 
+      },75);
+    
+            setInterval(function thug4Move() { 
+      if (gameIsActive === true && thug4Allow === true) {
+      var enemy = document.getElementById("thug4");
+      var bob = document.getElementById("bob");
+      var bobTop = getComputedStyle(bob).getPropertyValue('top');
+      var bobLeft = getComputedStyle(bob).getPropertyValue('left');
+      var enemyLeft = (Math.floor(Math.random() * 2));
+      var enemyTop = (Math.floor(Math.random() * 2));
+      var isLeftOrTop = (Math.floor(Math.random() * 2));
+      var enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        var enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      switch (isLeftOrTop) {
+        case 0 :
+          switch (enemyLeft) {
+            case 0 :
+              if (parseInt(enemyLeftCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyLeftCSS,10) - 10 > -10) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+        case 1 :
+                    switch (enemyTop) {
+            case 0 :
+              if (parseInt(enemyTopCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyTopCSS,10) - 10 > - 10) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+          break;
+      }
+              enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      if (parseInt(bobTop,10) === parseInt(enemyTopCSS,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS,10)) {
+        console.log("Game over"); //game over section
+        console.log(bobTop + " " + bobLeft + " " + enemyTopCSS + " " + enemyLeftCSS);
+        gameIsActive = false;
+      var text = document.getElementById("starttxt")
+      var btn = document.getElementById("startbtn")
+      var back = document.getElementById("start")
+      var music = document.getElementById("overworld");
+      var death = document.getElementById("death");
+      var thugElement1 = document.getElementById("thug");
+      var thugElement2 = document.getElementById("thug2");
+      var thugElement3 = document.getElementById("thug3");
+      var thugElement4 = document.getElementById("thug4");
+      var thugElement5 = document.getElementById("thug5");
+      var thugElement6 = document.getElementById("thug6");
+      var harris = document.getElementById("enemy");
+      bob.style.top = "0px";
+      bob.style.left = "0px";
+      text.style.visibility = "visible";
+      btn.style.visibility = "visible";
+      back.style.visibility = "visible";
+      text.innerHTML = "One of Harris's thugs killed Bob!";
+      btn.innerHTML = "Revive Bob!";
+      thugElement1.style.visibility = "hidden";
+      thugElement1.style.left = "290px";
+      thugElement1.style.top = "0px";
+      thugElement2.style.visibility = "hidden";
+      thugElement2.style.left = "0px";
+      thugElement2.style.top = "290px";
+      thugElement3.style.visibility = "hidden";
+      thugElement3.style.left = "140px";
+      thugElement3.style.top = "290px";
+      thugElement4.style.visibility = "hidden";
+      thugElement4.style.left = "140px";
+      thugElement4.style.top = "0px";
+      thugElement5.style.visibility = "hidden";
+      thugElement5.style.left = "0px";
+      thugElement5.style.top = "140px";
+      thugElement6.style.visibility = "hidden";
+      thugElement6.style.left = "290px";
+      thugElement6.style.top = "140px";
+      harris.style.visibility = "hidden";
+      harris.style.top = "290px";
+      harris.style.left = "290px";
+      music.pause();
+      music.currentTime = 0;
+      death.play();
+      counter = 0;
+    thug1Allow = false;
+    thug2Allow = false;
+    thug3Allow = false;
+    thug4Allow = false;
+    thug5Allow = false;
+    thug6Allow = false;
+      //end game over section
+      }
+      } 
+      },75);
+    
+            setInterval(function thug5Move() { 
+      if (gameIsActive === true && thug5Allow === true) {
+      var enemy = document.getElementById("thug5");
+      var bob = document.getElementById("bob");
+      var bobTop = getComputedStyle(bob).getPropertyValue('top');
+      var bobLeft = getComputedStyle(bob).getPropertyValue('left');
+      var enemyLeft = (Math.floor(Math.random() * 2));
+      var enemyTop = (Math.floor(Math.random() * 2));
+      var isLeftOrTop = (Math.floor(Math.random() * 2));
+      var enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        var enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      switch (isLeftOrTop) {
+        case 0 :
+          switch (enemyLeft) {
+            case 0 :
+              if (parseInt(enemyLeftCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyLeftCSS,10) - 10 > -10) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+        case 1 :
+                    switch (enemyTop) {
+            case 0 :
+              if (parseInt(enemyTopCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyTopCSS,10) - 10 > - 10) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+          break;
+      }
+              enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      if (parseInt(bobTop,10) === parseInt(enemyTopCSS,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS,10)) {
+        console.log("Game over"); //game over section
+        console.log(bobTop + " " + bobLeft + " " + enemyTopCSS + " " + enemyLeftCSS);
+        gameIsActive = false;
+      var text = document.getElementById("starttxt")
+      var btn = document.getElementById("startbtn")
+      var back = document.getElementById("start")
+      var music = document.getElementById("overworld");
+      var death = document.getElementById("death");
+      var thugElement1 = document.getElementById("thug");
+      var thugElement2 = document.getElementById("thug2");
+      var thugElement3 = document.getElementById("thug3");
+      var thugElement4 = document.getElementById("thug4");
+      var thugElement5 = document.getElementById("thug5");
+      var thugElement6 = document.getElementById("thug6");
+      var harris = document.getElementById("enemy");
+      bob.style.top = "0px";
+      bob.style.left = "0px";
+      text.style.visibility = "visible";
+      btn.style.visibility = "visible";
+      back.style.visibility = "visible";
+      text.innerHTML = "One of Harris's thugs killed Bob!";
+      btn.innerHTML = "Revive Bob!";
+      thugElement1.style.visibility = "hidden";
+      thugElement1.style.left = "290px";
+      thugElement1.style.top = "0px";
+      thugElement2.style.visibility = "hidden";
+      thugElement2.style.left = "0px";
+      thugElement2.style.top = "290px";
+      thugElement3.style.visibility = "hidden";
+      thugElement3.style.left = "140px";
+      thugElement3.style.top = "290px";
+      thugElement4.style.visibility = "hidden";
+      thugElement4.style.left = "140px";
+      thugElement4.style.top = "0px";
+      thugElement5.style.visibility = "hidden";
+      thugElement5.style.left = "0px";
+      thugElement5.style.top = "140px";
+      thugElement6.style.visibility = "hidden";
+      thugElement6.style.left = "290px";
+      thugElement6.style.top = "140px";
+      harris.style.visibility = "hidden";
+      harris.style.top = "290px";
+      harris.style.left = "290px";
+      music.pause();
+      music.currentTime = 0;
+      death.play();
+      counter = 0;
+    thug1Allow = false;
+    thug2Allow = false;
+    thug3Allow = false;
+    thug4Allow = false;
+    thug5Allow = false;
+    thug6Allow = false;
+      //end game over section
+      }
+      } 
+      },75);
+    
+            setInterval(function thug6Move() { 
+      if (gameIsActive === true && thug6Allow === true) {
+      var enemy = document.getElementById("thug6");
+      var bob = document.getElementById("bob");
+      var bobTop = getComputedStyle(bob).getPropertyValue('top');
+      var bobLeft = getComputedStyle(bob).getPropertyValue('left');
+      var enemyLeft = (Math.floor(Math.random() * 2));
+      var enemyTop = (Math.floor(Math.random() * 2));
+      var isLeftOrTop = (Math.floor(Math.random() * 2));
+      var enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        var enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      switch (isLeftOrTop) {
+        case 0 :
+          switch (enemyLeft) {
+            case 0 :
+              if (parseInt(enemyLeftCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyLeftCSS,10) - 10 > -10) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+        case 1 :
+                    switch (enemyTop) {
+            case 0 :
+              if (parseInt(enemyTopCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyTopCSS,10) - 10 > - 10) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+          break;
+      }
+              enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      if (parseInt(bobTop,10) === parseInt(enemyTopCSS,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS,10)) {
+        console.log("Game over"); //game over section
+        console.log(bobTop + " " + bobLeft + " " + enemyTopCSS + " " + enemyLeftCSS);
+        gameIsActive = false;
+      var text = document.getElementById("starttxt")
+      var btn = document.getElementById("startbtn")
+      var back = document.getElementById("start")
+      var music = document.getElementById("overworld");
+      var death = document.getElementById("death");
+      var thugElement1 = document.getElementById("thug");
+      var thugElement2 = document.getElementById("thug2");
+      var thugElement3 = document.getElementById("thug3");
+      var thugElement4 = document.getElementById("thug4");
+      var thugElement5 = document.getElementById("thug5");
+      var thugElement6 = document.getElementById("thug6");
+      var harris = document.getElementById("enemy");
+      bob.style.top = "0px";
+      bob.style.left = "0px";
+      text.style.visibility = "visible";
+      btn.style.visibility = "visible";
+      back.style.visibility = "visible";
+      text.innerHTML = "One of Harris's thugs killed Bob!";
+      btn.innerHTML = "Revive Bob!";
+      thugElement1.style.visibility = "hidden";
+      thugElement1.style.left = "290px";
+      thugElement1.style.top = "0px";
+      thugElement2.style.visibility = "hidden";
+      thugElement2.style.left = "0px";
+      thugElement2.style.top = "290px";
+      thugElement3.style.visibility = "hidden";
+      thugElement3.style.left = "140px";
+      thugElement3.style.top = "290px";
+      thugElement4.style.visibility = "hidden";
+      thugElement4.style.left = "140px";
+      thugElement4.style.top = "0px";
+      thugElement5.style.visibility = "hidden";
+      thugElement5.style.left = "0px";
+      thugElement5.style.top = "140px";
+      thugElement6.style.visibility = "hidden";
+      thugElement6.style.left = "290px";
+      thugElement6.style.top = "140px";
+      harris.style.visibility = "hidden";
+      harris.style.top = "290px";
+      harris.style.left = "290px";
+      music.pause();
+      music.currentTime = 0;
+      death.play();
+      counter = 0;
+    thug1Allow = false;
+    thug2Allow = false;
+    thug3Allow = false;
+    thug4Allow = false;
+    thug5Allow = false;
+    thug6Allow = false;
+      //end game over section
+      }
+      } 
+      },75);
+  </script>
 </body>
 </html>
