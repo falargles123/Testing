@@ -168,30 +168,37 @@
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 200px;
+      top : 250px;
     }
     #change2 {
             position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 150px;
+      top : 200px;
     }
     #change3 {
       position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 100px;
+      top : 150px;
     }
     #change4 {
             position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 50px;
+      top : 100px;
     }
     #change5 {
+      position : absolute;
+      width : 100%;
+      height : 50px;
+      margin : 0px 0px 0px 0px;
+      top : 50px;
+    }
+    #change6 {
       position : absolute;
       width : 100%;
       height : 50px;
@@ -231,6 +238,7 @@
   <h3 id="instruct"> Use the arrow keys to move Bob the square around the map! Watch out for Harris and his thugs though, they will kill Bob.</h3>
   
   <div id="changelog">
+        <p id="change6"> Version 1.3 - Bob the red square now supports the WASD keys!</p>
         <p id="change5"> Version 1.2.2 - Bug fixes.</p>
         <p id="change4"> Version 1.2.1 - Bug fixes and improved efficiency.</p>
     <p id="change3"> Version 1.2.0 - New lime-green thug! This new thug is also extremely speedy, and loves to circle the edges of the map. Have fun and good luck!</p>
@@ -268,13 +276,13 @@
       var bob = document.getElementById("bob");
       var bobTop = getComputedStyle(bob).getPropertyValue('top');
       var bobLeft = getComputedStyle(bob).getPropertyValue('left');
-    if (k.keyCode === 39 && parseInt(bobLeft,10) + 10 < 300) {
+    if ((k.keyCode === 39 || k.keyCode === 68) && parseInt(bobLeft,10) + 10 < 300) {
       bob.style.left = (parseInt(bobLeft,10) +10) + "px";
-    } else if (k.keyCode === 40 && parseInt(bobTop,10) + 10 < 300) {
+    } else if ((k.keyCode === 40 || k.keyCode === 83) && parseInt(bobTop,10) + 10 < 300) {
       bob.style.top = (parseInt(bobTop,10) +10) + "px";
-    } else if (k.keyCode === 38 && parseInt(bobTop,10) - 10 > -10) {
+    } else if ((k.keyCode === 38 || k.keyCode === 87) && parseInt(bobTop,10) - 10 > -10) {
       bob.style.top = (parseInt(bobTop,10) -10) + "px";
-    } else if (k.keyCode === 37  && parseInt(bobLeft,10) - 10 > -10) {
+    } else if ((k.keyCode === 37 || k.keyCode === 65) && parseInt(bobLeft,10) - 10 > -10) {
       bob.style.left = (parseInt(bobLeft,10) -10) + "px";
     }
     setTimeout(function debouncer() {debounce = false;},50);
