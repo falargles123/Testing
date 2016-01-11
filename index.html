@@ -210,9 +210,13 @@
       background-color : black;
       color : white;
       position : absolute;
-      width : 50px;
-      height : 10px;
-      left : -50px;
+      width : 45px;
+      height : 30px;
+      left : -46px;
+      top : -1px;
+      margin : 0px 0px 0px 0px;
+      font-size : 12px;
+      visibility : hidden;
     }
   </style>
 </head>
@@ -243,8 +247,8 @@
     </div>
     <div id="thug8">
     </div>
-    <div id="pause">
-      <button type="button"> Pause </button>
+    <div id="pausediv">
+      <button type="button" id="pause" onclick="pause()"> Pause </button>
     </div>
   </div>
   <h3 id="instruct"> Use the arrow keys or WASD to move Bob the square around the map! Watch out for Harris and his thugs though, they will kill Bob.</h3>
@@ -364,6 +368,8 @@ gameOver();
       var text = document.getElementById("starttxt");
       var btn = document.getElementById("startbtn");
       var back = document.getElementById("start");
+      var pause = document.getElementById("pause");
+      pause.style.visibility = "visible";
       text.style.visibility = "hidden";
       btn.style.visibility = "hidden";
       back.style.visibility = "hidden";
@@ -834,6 +840,7 @@ gameOver();
       var thugElement6 = document.getElementById("thug6");
       var thugElement7 = document.getElementById("thug7");
       var thugElement8 = document.getElementById("thug8");
+        var pause = document.getElementById("pause");
       var harris = document.getElementById("enemy");
       bob.style.top = "0px";
       bob.style.left = "0px";
@@ -867,6 +874,8 @@ gameOver();
       thugElement8.style.visibility = "hidden";
       thugElement8.style.left = "290px";
       harris.style.visibility = "hidden";
+      pause.visibility = "hidden";
+      pause.innerHTML = "Pause"
       harris.style.top = "290px";
       harris.style.left = "290px";
       music.pause();
@@ -884,6 +893,17 @@ gameOver();
     thug7Debouncer = false;
     thug8Debouncer = 0;
       }
+    function pause() {
+              var pause = document.getElementById("pause");
+      if (gameIsActive === false) {
+        gameIsActive = true;
+        pause.innerHTML = "Pause"
+        
+      } else if (gameIsActive === true) {
+        gameIsActive = false;
+        pause.innerHTML = "Play"
+      }
+    }
   </script>
 </body>
 </html>
