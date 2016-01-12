@@ -226,6 +226,13 @@
       visibility : hidden;
     }
     
+    #upArrow {
+      position : absolute;
+      width : 30px;
+      height : 30px;
+      left : 120px;
+      top : 305px;
+    }
   </style>
 </head>
 <body>
@@ -257,6 +264,9 @@
     </div>
     <div id="pausediv">
       <button type="button" id="pause" onclick="pause()"> Pause </button>
+    </div>
+    <div id="upbutton">
+      <button class="ui-btn" id="upArrow" onmousedown="upArrowMobile()"> Up </button>
     </div>
   </div>
   <h3 id="instruct"> Use the arrow keys or WASD to move Bob the square around the map! Watch out for Harris and his thugs though, they will kill Bob.</h3>
