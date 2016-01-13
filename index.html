@@ -33,7 +33,7 @@
       text-align : center;
       position : relative;
       width : 100%;
-      top : 400px;
+      top : 450px;
       margin : 0px 0px 0px 0px;
     }
     
@@ -235,6 +235,38 @@
       top : 305px;
       text-align : center;
     }
+    
+        #downArrow {
+      position : absolute;
+      width : 30px;
+      height : 30px;
+      left : 120px;
+      top : 340px;
+      text-align : center;
+    }
+    
+        #leftArrow {
+      position : absolute;
+      width : 30px;
+      height : 30px;
+      left : 85px;
+      top : 340px;
+      text-align : center;
+    }
+    
+        #rightArrow {
+      position : absolute;
+      width : 30px;
+      height : 30px;
+      left : 155px;
+      top : 340px;
+      text-align : center;
+    }
+    #changelogtxt {
+      position : relative;
+      text-align : center;
+      top : 450px;
+    }
   </style>
 </head>
 <body>
@@ -268,11 +300,14 @@
       <button type="button" id="pause" onclick="pause()"> Pause </button>
     </div>
     <div id="upbutton">
-      <button class="ui-btn" id="upArrow" onmousedown="upArrowMobile()"> Up </button>
+      <button class="ui-btn" id="upArrow" onmousedown="upArrowMobile()" onmouseup="upArrowMobileClear()"> &#8593; </button>
+      <button class="ui-btn" id="downArrow" onmousedown="downArrowMobile()" onmouseup="downArrowMobileClear()"> &#8595; </button>
+      <button class="ui-btn" id="leftArrow" onmousedown="leftArrowMobile()" onmouseup="leftArrowMobileClear()"> &#8592; </button>
+      <button class="ui-btn" id="rightArrow" onmousedown="rightArrowMobile()" onmouseup="rightArrowMobileClear()"> &#8594; </button>
     </div>
   </div>
-  <h3 id="instruct"> Use the arrow keys or WASD to move Bob the square around the map! Watch out for Harris and his thugs though, they will kill Bob.</h3>
-  
+  <h3 id="instruct"> Use the arrow keys or WASD to move Bob the square around the map! Watch out for Harris and his thugs though, they will kill Bob. Mobile users : use the arrow buttons on-screen. </h3>
+  <h2 id="changelogtxt"> Change Log </h2>
   <div id="changelog">
         <p id="change7"> Version 1.4.0 - Added a pause button! </p>
         <p id="change6"> Version 1.3.0 - Bob the red square now supports the WASD keys!</p>
@@ -924,6 +959,135 @@ gameOver();
         gameIsActive = false;
         pause.innerHTML = "Play"
       }
+    }
+    function upArrowMobile() {
+          var bob = document.getElementById("bob");
+          var bobTop = getComputedStyle(bob).getPropertyValue('top');
+          var bobLeft = getComputedStyle(bob).getPropertyValue('left');
+      if (gameIsActive === true && parseInt(bobTop,10) - 10 > - 10) {
+        console.log("hi");
+              bob.style.top = (parseInt(bobTop,10) - 10) + "px";
+        
+         upArrowInterval = setInterval(function move() {
+                bob = document.getElementById("bob");
+                bobTop = getComputedStyle(bob).getPropertyValue('top');
+                bobLeft = getComputedStyle(bob).getPropertyValue('left');
+       if (parseInt(bobTop,10) - 10 > - 10 && gameIsActive === true) {
+      bob.style.top = (parseInt(bobTop,10) -10) + "px";
+    } }, 150)
+    }
+    }
+    
+        function downArrowMobile() {
+          var bob = document.getElementById("bob");
+          var bobTop = getComputedStyle(bob).getPropertyValue('top');
+          var bobLeft = getComputedStyle(bob).getPropertyValue('left');
+      if (gameIsActive === true && parseInt(bobTop,10) + 10 < 300) {
+        console.log("hi");
+              bob.style.top = (parseInt(bobTop,10) + 10) + "px";
+        
+         downArrowInterval = setInterval(function move2() {
+                bob = document.getElementById("bob");
+                bobTop = getComputedStyle(bob).getPropertyValue('top');
+                bobLeft = getComputedStyle(bob).getPropertyValue('left');
+       if (parseInt(bobTop,10) + 10 < 300 && gameIsActive === true) {
+      bob.style.top = (parseInt(bobTop,10) + 10) + "px";
+    } }, 150)
+    }
+    }
+    
+        function leftArrowMobile() {
+          var bob = document.getElementById("bob");
+          var bobTop = getComputedStyle(bob).getPropertyValue('top');
+          var bobLeft = getComputedStyle(bob).getPropertyValue('left');
+      if (gameIsActive === true && parseInt(bobLeft,10) - 10 > -10) {
+        console.log("hi");
+      bob.style.left = (parseInt(bobLeft,10) -10) + "px";
+        
+         leftArrowInterval = setInterval(function move3() {
+                bob = document.getElementById("bob");
+                bobTop = getComputedStyle(bob).getPropertyValue('top');
+                bobLeft = getComputedStyle(bob).getPropertyValue('left');
+       if (parseInt(bobLeft,10) - 10 > -10 && gameIsActive === true) {
+      bob.style.left = (parseInt(bobLeft,10) -10) + "px";
+    } }, 150)
+    }
+    }
+    
+        function rightArrowMobile() {
+          var bob = document.getElementById("bob");
+          var bobTop = getComputedStyle(bob).getPropertyValue('top');
+          var bobLeft = getComputedStyle(bob).getPropertyValue('left');
+      if (gameIsActive === true && parseInt(bobLeft,10) + 10 < 300) {
+        console.log("hi");
+      bob.style.left = (parseInt(bobLeft,10) +10) + "px";
+        
+         rightArrowInterval = setInterval(function move4() {
+                bob = document.getElementById("bob");
+                bobTop = getComputedStyle(bob).getPropertyValue('top');
+                bobLeft = getComputedStyle(bob).getPropertyValue('left');
+       if (parseInt(bobLeft,10) + 10 < 300 && gameIsActive === true) {
+      bob.style.left = (parseInt(bobLeft,10) +10) + "px";
+    } }, 150)
+    }
+    }
+    
+    function upArrowMobileClear() {
+      clearInterval(upArrowInterval);
+    }
+        function downArrowMobileClear() {
+      clearInterval(downArrowInterval);
+    }
+            function leftArrowMobileClear() {
+      clearInterval(leftArrowInterval);
+    }
+            function rightArrowMobileClear() {
+      clearInterval(rightArrowInterval);
+    }
+    window.onmouseup = function d() {
+      if (typeof upArrowInterval !== "undefined") {
+            clearInterval(upArrowInterval);
+      }
+                if (typeof downArrowInterval !== "undefined") {  clearInterval(downArrowInterval);
+      }
+      if (typeof leftArrowInterval !== "undefined") {
+            clearInterval(leftArrowInterval);
+      }
+            if (typeof rightArrowInterval !== "undefined") {
+            clearInterval(rightArrowInterval);
+            }
+    }
+    // The following mobile user agent test section was courtesy of a stack overflow member. I do not own this code.
+var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+        // the end of the copied section.
+    if (isMobile.any() === null) {
+      var b1 = document.getElementById("upArrow");
+      var b2 = document.getElementById("downArrow");
+      var b3 = document.getElementById("leftArrow");
+      var b4 = document.getElementById("rightArrow");
+      b1.style.visibility = "hidden";
+      b2.style.visibility = "hidden";
+      b3.style.visibility = "hidden";
+      b4.style.visibility = "hidden";
     }
   </script>
 </body>
