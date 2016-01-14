@@ -23,6 +23,8 @@
       left : 0px;
       top : 0px;
       position : absolute;
+      background-image : url("http://cdn.flaticon.com/png/256/42877.png");
+      background-size : cover;
     }
     #title {
       background-color : rgb(50,50,50);
@@ -48,6 +50,8 @@
       height : 10px;
       margin : 0px 0px 0px 0px;
       visibility : hidden;
+            background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+      background-size : cover;
     }
     #start {
       width : 100%;
@@ -87,6 +91,8 @@
       top : 0px;
       margin : 0px 0px 0px 0px;
       visibility : hidden;
+                  background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+      background-size : cover;
     }
     #thug2 {
       height : 10px;
@@ -97,6 +103,8 @@
       top : 290px;
       margin : 0px 0px 0px 0px;
       visibility : hidden;
+                  background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+      background-size : cover;
     }
         #thug3 {
       height : 10px;
@@ -107,6 +115,8 @@
       top : 290px;
       margin : 0px 0px 0px 0px;
       visibility : hidden;
+                      background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+      background-size : cover;
     }
         #thug4 {
       height : 10px;
@@ -117,6 +127,8 @@
       top : 0px;
       margin : 0px 0px 0px 0px;
       visibility : hidden;
+                      background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+      background-size : cover;
     }
         #thug5 {
       height : 10px;
@@ -127,6 +139,8 @@
       top : 140px;
       margin : 0px 0px 0px 0px;
       visibility : hidden;
+                      background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+      background-size : cover;
     }
         #thug6 {
       height : 10px;
@@ -137,6 +151,8 @@
       top : 140px;
       margin : 0px 0px 0px 0px;
       visibility : hidden;
+                      background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+      background-size : cover;
     }
     #thug7 {
       height : 10px;
@@ -147,6 +163,8 @@
       top : 0px;
       margin : 0px 0px 0px 0px;
       visibility : hidden;
+                  background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+      background-size : cover;
     }
     #thug8 {
       height : 10px;
@@ -157,6 +175,58 @@
       top : 0px;
       margin : 0px 0px 0px 0px;
       visibility : hidden;
+                  background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+      background-size : cover;
+    }
+    
+    #thug9 {
+      height : 10px;
+      width : 10px;
+      background-color : magenta;
+      position : absolute;
+      left : 130px;
+      top : 130px;
+      margin : 0px 0px 0px 0px;
+      visibility : hidden;
+                  background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+      background-size : cover;
+    }
+
+    #thug10 {
+            height : 10px;
+      width : 10px;
+      background-color : magenta;
+      position : absolute;
+      left : 140px;
+      top : 130px;
+      margin : 0px 0px 0px 0px;
+      visibility : hidden;
+                  background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+      background-size : cover;
+    }
+    #thug11 {
+            height : 10px;
+      width : 10px;
+      background-color : magenta;
+      position : absolute;
+      left : 130px;
+      top : 140px;
+      margin : 0px 0px 0px 0px;
+      visibility : hidden;
+                  background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+      background-size : cover;
+    }
+    #thug12 {
+            height : 10px;
+      width : 10px;
+      background-color : magenta;
+      position : absolute;
+      left : 140px;
+      top : 140px;
+      margin : 0px 0px 0px 0px;
+      visibility : hidden;
+                  background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+      background-size : cover;
     }
     #changelog {
       border : 1px solid black;
@@ -306,6 +376,14 @@
     </div>
     <div id="thug8">
     </div>
+    <div id="thug9">
+        </div>
+    <div id="thug10">
+    </div>
+    <div id="thug11">
+    </div>
+    <div id="thug12">
+    </div>
     <div id="pausediv">
       <button type="button" id="pause" onclick="pause()"> Pause </button>
     </div>
@@ -341,6 +419,7 @@
     var thug6 = 60;
     var thug7 = 70;
     var thug8 = 80;
+    var thug9 = 90;
     var thug1Allow = false;
     var thug2Allow = false;
     var thug3Allow = false;
@@ -349,6 +428,7 @@
     var thug6Allow = false;
     var thug7Allow = false;
     var thug8Allow = false;
+    var thug9Allow = false;
     var counter = 0;
     var thug7Debouncer = false;
     var thug8Debouncer = 0;
@@ -454,6 +534,10 @@ gameOver();
       var thugElement6 = document.getElementById("thug6");
       var thugElement7 = document.getElementById("thug7");
       var thugElement8 = document.getElementById("thug8");
+      var thugElement9 = document.getElementById("thug9");
+      var thugElement10 = document.getElementById("thug10");
+      var thugElement11 = document.getElementById("thug11");
+      var thugElement12 = document.getElementById("thug12");
       if (counter === thug1) {
         thugElement1.style.visibility = "visible";
         thug1Allow = true;
@@ -478,6 +562,8 @@ gameOver();
       } else if (counter === thug8) {
         thugElement8.style.visibility = "visible";
         thug8Allow = true;
+      } else if (counter === thug9) {
+        thug9Allow = true;
       }
     }
     }
@@ -906,7 +992,11 @@ gameOver();
       var thugElement6 = document.getElementById("thug6");
       var thugElement7 = document.getElementById("thug7");
       var thugElement8 = document.getElementById("thug8");
-        var pause = document.getElementById("pause");
+      var thugElement9 = document.getElementById("thug9");
+      var thugElement10 = document.getElementById("thug10");
+      var thugElement11 = document.getElementById("thug11");
+      var thugElement12 = document.getElementById("thug12");
+      var pause = document.getElementById("pause");
       var harris = document.getElementById("enemy");
       bob.style.top = "0px";
       bob.style.left = "0px";
@@ -939,6 +1029,18 @@ gameOver();
       thugElement8.style.top = "0px";
       thugElement8.style.visibility = "hidden";
       thugElement8.style.left = "290px";
+      thugElement9.style.visibility = "hidden";
+      thugElement9.style.top = "130px";
+      thugElement9.style.left = "130px";
+      thugElement10.style.visibility = "hidden";
+      thugElement10.style.top = "140px";
+      thugElement10.style.left = "130px";
+      thugElement11.style.visibility = "hidden";
+      thugElement11.style.top = "140px";
+      thugElement11.style.left = "130px";
+      thugElement12.style.visibility = "hidden";
+      thugElement12.style.top = "140px";
+      thugElement12.style.left = "140px";
       harris.style.visibility = "hidden";
       pause.style.visibility = "hidden";
       pause.innerHTML = "Pause"
@@ -1099,6 +1201,181 @@ var isMobile = {
       b3.style.visibility = "hidden";
       b4.style.visibility = "hidden";
     }
+    
+      setInterval(function thug9Move() { 
+      if (gameIsActive === true && thug9Allow === true) {
+      var enemy = document.getElementById("thug9");
+      var enemy2 = document.getElementById("thug10");
+      var enemy3 = document.getElementById("thug11");
+      var enemy4 = document.getElementById("thug12");
+      var bob = document.getElementById("bob");
+      var bobTop = getComputedStyle(bob).getPropertyValue('top');
+      var bobLeft = getComputedStyle(bob).getPropertyValue('left');
+      var enemyLeft = (Math.floor(Math.random() * 2));
+      var enemyTop = (Math.floor(Math.random() * 2));
+      var isLeftOrTop = (Math.floor(Math.random() * 2));
+      var enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+      var enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      var enemyLeftCSS2 = getComputedStyle(enemy2).getPropertyValue('left');
+      var enemyTopCSS2 = getComputedStyle(enemy2).getPropertyValue('top');
+      var enemyLeftCSS3 = getComputedStyle(enemy3).getPropertyValue('left');
+      var enemyTopCSS3 = getComputedStyle(enemy3).getPropertyValue('top');
+      var enemyLeftCSS4 = getComputedStyle(enemy4).getPropertyValue('left');
+      var enemyTopCSS4 = getComputedStyle(enemy4).getPropertyValue('top');
+      switch (isLeftOrTop) {
+        case 0 :
+          switch (enemyLeft) {
+            case 0 :
+              if (parseInt(enemyLeftCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyLeftCSS,10) - 10 > -10) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+        case 1 :
+                    switch (enemyTop) {
+            case 0 :
+              if (parseInt(enemyTopCSS,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyTopCSS,10) - 10 > - 10) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+          break;
+      }
+        
+              switch (isLeftOrTop) {
+        case 0 :
+          switch (enemyLeft) {
+            case 0 :
+              if (parseInt(enemyLeftCSS2,10) + 10 < 300) {
+                enemy2.style.visibility = "visible";
+                enemy2.style.left = (parseInt(enemyLeftCSS2,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyLeftCSS2,10) - 10 > -10) {
+                enemy2.style.visibility = "visible";
+                enemy2.style.left = (parseInt(enemyLeftCSS2,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+        case 1 :
+                    switch (enemyTop) {
+            case 0 :
+              if (parseInt(enemyTopCSS2,10) + 10 < 300) {
+                enemy2.style.visibility = "visible";
+                enemy2.style.top = (parseInt(enemyTopCSS2,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyTopCSS2,10) - 10 > - 10) {
+                enemy2.style.visibility = "visible";
+                enemy2.style.top = (parseInt(enemyTopCSS2,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+          break;
+      }
+        
+                    switch (isLeftOrTop) {
+        case 0 :
+          switch (enemyLeft) {
+            case 0 :
+              if (parseInt(enemyLeftCSS3,10) + 10 < 300) {
+                enemy3.style.visibility = "visible";
+                enemy3.style.left = (parseInt(enemyLeftCSS3,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyLeftCSS3,10) - 10 > -10) {
+                enemy3.style.visibility = "visible";
+                enemy3.style.left = (parseInt(enemyLeftCSS3,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+        case 1 :
+                    switch (enemyTop) {
+            case 0 :
+              if (parseInt(enemyTopCSS3,10) + 10 < 300) {
+                enemy3.style.visibility = "visible";
+                enemy3.style.top = (parseInt(enemyTopCSS3,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyTopCSS3,10) - 10 > - 10) {
+                enemy3.style.visibility = "visible";
+                enemy3.style.top = (parseInt(enemyTopCSS3,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+          break;
+      }
+        
+                      switch (isLeftOrTop) {
+        case 0 :
+          switch (enemyLeft) {
+            case 0 :
+              if (parseInt(enemyLeftCSS4,10) + 10 < 300) {
+                enemy4.style.visibility = "visible";
+                enemy4.style.left = (parseInt(enemyLeftCSS4,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyLeftCSS4,10) - 10 > -10) {
+                enemy4.style.visibility = "visible";
+                enemy4.style.left = (parseInt(enemyLeftCSS4,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+        case 1 :
+                    switch (enemyTop) {
+            case 0 :
+              if (parseInt(enemyTopCSS4,10) + 10 < 300) {
+                enemy4.style.visibility = "visible";
+                enemy4.style.top = (parseInt(enemyTopCSS4,10) + 10) + "px";
+              }
+              break;
+            case 1 :
+              if (parseInt(enemyTopCSS4,10) - 10 > - 10) {
+                enemy4.style.visibility = "visible";
+                enemy4.style.top = (parseInt(enemyTopCSS4,10) - 10) + "px";
+              }
+                break;
+          }
+          break;
+          break;
+      }
+         
+              enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
+      if (parseInt(bobTop,10) === parseInt(enemyTopCSS,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS,10)) {
+        console.log("Game over"); //game over section
+        console.log(bobTop + " " + bobLeft + " " + enemyTopCSS + " " + enemyLeftCSS);
+      gameOver();
+      //end game over section
+      }
+      } 
+      },75);
   </script>
 </body>
 </html>
