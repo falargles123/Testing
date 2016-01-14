@@ -240,45 +240,59 @@
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 300px;
+      top : 400px;
     }
     #change2 {
             position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 250px;
+      top : 350px;
     }
     #change3 {
       position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 200px;
+      top : 300px;
     }
     #change4 {
             position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 150px;
+      top : 250px;
     }
     #change5 {
       position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 100px;
+      top : 200px;
     }
     #change6 {
       position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 50px;
+      top : 150px;
     }
     #change7 {
     position : absolute;
+      width : 100%;
+      height : 50px;
+      margin : 0px 0px 0px 0px;
+      top : 100px; 
+    }
+    #change8 {
+      position : absolute;
+      width : 100%;
+      height : 50px;
+      margin : 0px 0px 0px 0px;
+      top : 50px; 
+    }
+    #change9 {
+      position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
@@ -397,6 +411,8 @@
   <h3 id="instruct"> Use the arrow keys or WASD to move Bob the square around the map! Watch out for Harris and his thugs though, they will kill Bob. Mobile users : use the arrow buttons on-screen. </h3>
   <h2 id="changelogtxt"> Change Log </h2>
   <div id="changelog">
+    <p id="change9"> Version 2.0 - Added smiley faces for bob and sad faces for Harris and his thugs! Also added new magenta thug! Magenta thug may be a bit slower than his fellow thugs, but he sure packs a big punch! </p>
+    <p id="change8"> Version 1.5.0 - Added limited mobile functionality! </p>
         <p id="change7"> Version 1.4.0 - Added a pause button! </p>
         <p id="change6"> Version 1.3.0 - Bob the red square now supports the WASD keys!</p>
         <p id="change5"> Version 1.2.2 - Bug fixes.</p>
@@ -419,7 +435,7 @@
     var thug6 = 60;
     var thug7 = 70;
     var thug8 = 80;
-    var thug9 = 90;
+    var thug9 = 4;
     var thug1Allow = false;
     var thug2Allow = false;
     var thug3Allow = false;
@@ -1036,8 +1052,8 @@ gameOver();
       thugElement10.style.top = "140px";
       thugElement10.style.left = "130px";
       thugElement11.style.visibility = "hidden";
-      thugElement11.style.top = "140px";
-      thugElement11.style.left = "130px";
+      thugElement11.style.top = "130px";
+      thugElement11.style.left = "140px";
       thugElement12.style.visibility = "hidden";
       thugElement12.style.top = "140px";
       thugElement12.style.left = "140px";
@@ -1058,6 +1074,7 @@ gameOver();
     thug6Allow = false;
     thug7Allow = false;
     thug8Allow = false;
+    thug9Allow = false;
     thug7Debouncer = false;
     thug8Debouncer = 0;
       }
@@ -1226,121 +1243,25 @@ var isMobile = {
         case 0 :
           switch (enemyLeft) {
             case 0 :
-              if (parseInt(enemyLeftCSS,10) + 10 < 300) {
+              if (parseInt(enemyLeftCSS,10) + 10 < 300 && parseInt(enemyLeftCSS2,10) + 10 < 300 && parseInt(enemyLeftCSS3,10) + 10 < 300 && parseInt(enemyLeftCSS4,10) + 10 < 300 ) {
                 enemy.style.visibility = "visible";
                 enemy.style.left = (parseInt(enemyLeftCSS,10) + 10) + "px";
-              }
-              break;
-            case 1 :
-              if (parseInt(enemyLeftCSS,10) - 10 > -10) {
-                enemy.style.visibility = "visible";
-                enemy.style.left = (parseInt(enemyLeftCSS,10) - 10) + "px";
-              }
-                break;
-          }
-          break;
-        case 1 :
-                    switch (enemyTop) {
-            case 0 :
-              if (parseInt(enemyTopCSS,10) + 10 < 300) {
-                enemy.style.visibility = "visible";
-                enemy.style.top = (parseInt(enemyTopCSS,10) + 10) + "px";
-              }
-              break;
-            case 1 :
-              if (parseInt(enemyTopCSS,10) - 10 > - 10) {
-                enemy.style.visibility = "visible";
-                enemy.style.top = (parseInt(enemyTopCSS,10) - 10) + "px";
-              }
-                break;
-          }
-          break;
-          break;
-      }
-        
-              switch (isLeftOrTop) {
-        case 0 :
-          switch (enemyLeft) {
-            case 0 :
-              if (parseInt(enemyLeftCSS2,10) + 10 < 300) {
                 enemy2.style.visibility = "visible";
                 enemy2.style.left = (parseInt(enemyLeftCSS2,10) + 10) + "px";
-              }
-              break;
-            case 1 :
-              if (parseInt(enemyLeftCSS2,10) - 10 > -10) {
-                enemy2.style.visibility = "visible";
-                enemy2.style.left = (parseInt(enemyLeftCSS2,10) - 10) + "px";
-              }
-                break;
-          }
-          break;
-        case 1 :
-                    switch (enemyTop) {
-            case 0 :
-              if (parseInt(enemyTopCSS2,10) + 10 < 300) {
-                enemy2.style.visibility = "visible";
-                enemy2.style.top = (parseInt(enemyTopCSS2,10) + 10) + "px";
-              }
-              break;
-            case 1 :
-              if (parseInt(enemyTopCSS2,10) - 10 > - 10) {
-                enemy2.style.visibility = "visible";
-                enemy2.style.top = (parseInt(enemyTopCSS2,10) - 10) + "px";
-              }
-                break;
-          }
-          break;
-          break;
-      }
-        
-                    switch (isLeftOrTop) {
-        case 0 :
-          switch (enemyLeft) {
-            case 0 :
-              if (parseInt(enemyLeftCSS3,10) + 10 < 300) {
                 enemy3.style.visibility = "visible";
                 enemy3.style.left = (parseInt(enemyLeftCSS3,10) + 10) + "px";
-              }
-              break;
-            case 1 :
-              if (parseInt(enemyLeftCSS3,10) - 10 > -10) {
-                enemy3.style.visibility = "visible";
-                enemy3.style.left = (parseInt(enemyLeftCSS3,10) - 10) + "px";
-              }
-                break;
-          }
-          break;
-        case 1 :
-                    switch (enemyTop) {
-            case 0 :
-              if (parseInt(enemyTopCSS3,10) + 10 < 300) {
-                enemy3.style.visibility = "visible";
-                enemy3.style.top = (parseInt(enemyTopCSS3,10) + 10) + "px";
-              }
-              break;
-            case 1 :
-              if (parseInt(enemyTopCSS3,10) - 10 > - 10) {
-                enemy3.style.visibility = "visible";
-                enemy3.style.top = (parseInt(enemyTopCSS3,10) - 10) + "px";
-              }
-                break;
-          }
-          break;
-          break;
-      }
-        
-                      switch (isLeftOrTop) {
-        case 0 :
-          switch (enemyLeft) {
-            case 0 :
-              if (parseInt(enemyLeftCSS4,10) + 10 < 300) {
                 enemy4.style.visibility = "visible";
                 enemy4.style.left = (parseInt(enemyLeftCSS4,10) + 10) + "px";
               }
               break;
             case 1 :
-              if (parseInt(enemyLeftCSS4,10) - 10 > -10) {
+              if (parseInt(enemyLeftCSS,10) - 10 > -10 && parseInt(enemyLeftCSS2,10) - 10 > -10 && parseInt(enemyLeftCSS3,10) - 10 > -10 && parseInt(enemyLeftCSS4,10) - 10 > -10) {
+                enemy.style.visibility = "visible";
+                enemy.style.left = (parseInt(enemyLeftCSS,10) - 10) + "px";
+                enemy2.style.visibility = "visible";
+                enemy2.style.left = (parseInt(enemyLeftCSS2,10) - 10) + "px";
+                enemy3.style.visibility = "visible";
+                enemy3.style.left = (parseInt(enemyLeftCSS3,10) - 10) + "px";
                 enemy4.style.visibility = "visible";
                 enemy4.style.left = (parseInt(enemyLeftCSS4,10) - 10) + "px";
               }
@@ -1350,13 +1271,25 @@ var isMobile = {
         case 1 :
                     switch (enemyTop) {
             case 0 :
-              if (parseInt(enemyTopCSS4,10) + 10 < 300) {
+              if (parseInt(enemyTopCSS,10) + 10 < 300 && parseInt(enemyTopCSS2,10) + 10 < 300 && parseInt(enemyTopCSS3,10) + 10 < 300 && parseInt(enemyTopCSS4,10) + 10 < 300) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) + 10) + "px";
+                enemy2.style.visibility = "visible";
+                enemy2.style.top = (parseInt(enemyTopCSS2,10) + 10) + "px";
+                enemy3.style.visibility = "visible";
+                enemy3.style.top = (parseInt(enemyTopCSS3,10) + 10) + "px";
                 enemy4.style.visibility = "visible";
                 enemy4.style.top = (parseInt(enemyTopCSS4,10) + 10) + "px";
               }
               break;
             case 1 :
-              if (parseInt(enemyTopCSS4,10) - 10 > - 10) {
+              if (parseInt(enemyTopCSS,10) - 10 > - 10 && parseInt(enemyTopCSS2,10) - 10 > - 10 && parseInt(enemyTopCSS3,10) - 10 > - 10 && parseInt(enemyTopCSS4,10) - 10 > - 10) {
+                enemy.style.visibility = "visible";
+                enemy.style.top = (parseInt(enemyTopCSS,10) - 10) + "px";
+                enemy2.style.visibility = "visible";
+                enemy2.style.top = (parseInt(enemyTopCSS2,10) - 10) + "px";
+                enemy3.style.visibility = "visible";
+                enemy3.style.top = (parseInt(enemyTopCSS3,10) - 10) + "px";
                 enemy4.style.visibility = "visible";
                 enemy4.style.top = (parseInt(enemyTopCSS4,10) - 10) + "px";
               }
@@ -1365,17 +1298,22 @@ var isMobile = {
           break;
           break;
       }
-         
-              enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
+        enemyLeftCSS = getComputedStyle(enemy).getPropertyValue('left');
         enemyTopCSS = getComputedStyle(enemy).getPropertyValue('top');
-      if (parseInt(bobTop,10) === parseInt(enemyTopCSS,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS,10)) {
+        enemyLeftCSS2 = getComputedStyle(enemy2).getPropertyValue('left');
+        enemyTopCSS2 = getComputedStyle(enemy2).getPropertyValue('top');
+        enemyLeftCSS3 = getComputedStyle(enemy3).getPropertyValue('left');
+        enemyTopCSS3 = getComputedStyle(enemy3).getPropertyValue('top');
+        enemyLeftCSS4 = getComputedStyle(enemy4).getPropertyValue('left');
+        enemyTopCSS4 = getComputedStyle(enemy4).getPropertyValue('top');
+      if ((parseInt(bobTop,10) === parseInt(enemyTopCSS,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS,10)) || (parseInt(bobTop,10) === parseInt(enemyTopCSS2,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS2,10)) || (parseInt(bobTop,10) === parseInt(enemyTopCSS3,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS3,10)) || (parseInt(bobTop,10) === parseInt(enemyTopCSS4,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS4,10))) {
         console.log("Game over"); //game over section
         console.log(bobTop + " " + bobLeft + " " + enemyTopCSS + " " + enemyLeftCSS);
       gameOver();
       //end game over section
       }
       } 
-      },75);
+      },80);
   </script>
 </body>
 </html>
