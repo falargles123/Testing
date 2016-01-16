@@ -189,8 +189,6 @@
       top : 130px;
       margin : 0px 0px 0px 0px;
       visibility : hidden;
-                  background-image : url("http://cdn.flaticon.com/png/256/56150.png");
-      background-size : cover;
     }
     #thug10 {
             height : 10px;
@@ -201,8 +199,6 @@
       top : 130px;
       margin : 0px 0px 0px 0px;
       visibility : hidden;
-                  background-image : url("http://cdn.flaticon.com/png/256/56150.png");
-      background-size : cover;
     }
     #thug11 {
             height : 10px;
@@ -213,8 +209,6 @@
       top : 140px;
       margin : 0px 0px 0px 0px;
       visibility : hidden;
-                  background-image : url("http://cdn.flaticon.com/png/256/56150.png");
-      background-size : cover;
     }
     #thug12 {
             height : 10px;
@@ -225,7 +219,18 @@
       top : 140px;
       margin : 0px 0px 0px 0px;
       visibility : hidden;
-                  background-image : url("http://cdn.flaticon.com/png/256/56150.png");
+    }
+    
+    #bigThugCover {
+                 height : 20px;
+      width : 20px;
+      background-color : magenta;
+      position : absolute;
+      left : 130px;
+      top : 130px;
+      margin : 0px 0px 0px 0px;
+      visibility : hidden; 
+      background-image : url("http://cdn.flaticon.com/png/256/56150.png");
       background-size : cover;
     }
     #changelog {
@@ -240,58 +245,65 @@
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 400px;
+      top : 450px;
     }
     #change2 {
             position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 350px;
+      top : 400px;
     }
     #change3 {
       position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 300px;
+      top : 350px;
     }
     #change4 {
             position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 250px;
+      top : 300px;
     }
     #change5 {
       position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 200px;
+      top : 250px;
     }
     #change6 {
       position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 150px;
+      top : 200px;
     }
     #change7 {
     position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 100px; 
+      top : 150px; 
     }
     #change8 {
       position : absolute;
       width : 100%;
       height : 50px;
       margin : 0px 0px 0px 0px;
-      top : 50px; 
+      top : 100px; 
     }
     #change9 {
+      position : absolute;
+      width : 100%;
+      height : 50px;
+      margin : 0px 0px 0px 0px;
+      top : 50px; 
+    }
+    #change10 {
       position : absolute;
       width : 100%;
       height : 50px;
@@ -398,6 +410,8 @@
     </div>
     <div id="thug12">
     </div>
+    <div id="bigThugCover">
+         </div>
     <div id="pausediv">
       <button type="button" id="pause" onclick="pause()"> Pause </button>
     </div>
@@ -411,6 +425,7 @@
   <h3 id="instruct"> Use the arrow keys or WASD to move Bob the square around the map! Watch out for Harris and his thugs though, they will kill Bob. Mobile users : use the arrow buttons on-screen. </h3>
   <h2 id="changelogtxt"> Change Log </h2>
   <div id="changelog">
+    <p id="change10"> Version 2.0.1 - Fixed a bug where the magenta thug had 4 sad faces. He now has 1 big sad face. </p>
     <p id="change9"> Version 2.0 - Added smiley faces for bob and sad faces for Harris and his thugs! Also added new magenta thug! Magenta thug may be a bit slower than his fellow thugs, but he sure packs a big punch! </p>
     <p id="change8"> Version 1.5.0 - Added limited mobile functionality! </p>
         <p id="change7"> Version 1.4.0 - Added a pause button! </p>
@@ -1012,6 +1027,7 @@ gameOver();
       var thugElement10 = document.getElementById("thug10");
       var thugElement11 = document.getElementById("thug11");
       var thugElement12 = document.getElementById("thug12");
+      var thugEffect = document.getElementById("bigThugCover");
       var pause = document.getElementById("pause");
       var harris = document.getElementById("enemy");
       bob.style.top = "0px";
@@ -1057,6 +1073,9 @@ gameOver();
       thugElement12.style.visibility = "hidden";
       thugElement12.style.top = "140px";
       thugElement12.style.left = "140px";
+      thugEffect.style.visibility = "hidden";
+      thugEffect.style.top = "130px";
+      thugEffect.style.left = "130px";
       harris.style.visibility = "hidden";
       pause.style.visibility = "hidden";
       pause.innerHTML = "Pause"
@@ -1225,6 +1244,7 @@ var isMobile = {
       var enemy2 = document.getElementById("thug10");
       var enemy3 = document.getElementById("thug11");
       var enemy4 = document.getElementById("thug12");
+      var face = document.getElementById("bigThugCover");
       var bob = document.getElementById("bob");
       var bobTop = getComputedStyle(bob).getPropertyValue('top');
       var bobLeft = getComputedStyle(bob).getPropertyValue('left');
@@ -1239,6 +1259,8 @@ var isMobile = {
       var enemyTopCSS3 = getComputedStyle(enemy3).getPropertyValue('top');
       var enemyLeftCSS4 = getComputedStyle(enemy4).getPropertyValue('left');
       var enemyTopCSS4 = getComputedStyle(enemy4).getPropertyValue('top');
+      var faceLeftCSS = getComputedStyle(face).getPropertyValue('left');
+      var faceTopCSS = getComputedStyle(face).getPropertyValue('top');
       switch (isLeftOrTop) {
         case 0 :
           switch (enemyLeft) {
@@ -1252,6 +1274,8 @@ var isMobile = {
                 enemy3.style.left = (parseInt(enemyLeftCSS3,10) + 10) + "px";
                 enemy4.style.visibility = "visible";
                 enemy4.style.left = (parseInt(enemyLeftCSS4,10) + 10) + "px";
+                face.style.visibility = "visible";
+                face.style.left = (parseInt(faceLeftCSS,10) + 10) + "px";
               }
               break;
             case 1 :
@@ -1264,6 +1288,8 @@ var isMobile = {
                 enemy3.style.left = (parseInt(enemyLeftCSS3,10) - 10) + "px";
                 enemy4.style.visibility = "visible";
                 enemy4.style.left = (parseInt(enemyLeftCSS4,10) - 10) + "px";
+                face.style.visibility = "visible";
+                face.style.left = (parseInt(faceLeftCSS,10) - 10) + "px";
               }
                 break;
           }
@@ -1280,6 +1306,8 @@ var isMobile = {
                 enemy3.style.top = (parseInt(enemyTopCSS3,10) + 10) + "px";
                 enemy4.style.visibility = "visible";
                 enemy4.style.top = (parseInt(enemyTopCSS4,10) + 10) + "px";
+                face.style.visibility = "visible";
+                face.style.top = (parseInt(faceTopCSS,10) + 10) + "px";
               }
               break;
             case 1 :
@@ -1292,6 +1320,8 @@ var isMobile = {
                 enemy3.style.top = (parseInt(enemyTopCSS3,10) - 10) + "px";
                 enemy4.style.visibility = "visible";
                 enemy4.style.top = (parseInt(enemyTopCSS4,10) - 10) + "px";
+                face.style.visibility = "visible";
+                face.style.top = (parseInt(faceTopCSS,10) - 10) + "px";
               }
                 break;
           }
@@ -1306,14 +1336,88 @@ var isMobile = {
         enemyTopCSS3 = getComputedStyle(enemy3).getPropertyValue('top');
         enemyLeftCSS4 = getComputedStyle(enemy4).getPropertyValue('left');
         enemyTopCSS4 = getComputedStyle(enemy4).getPropertyValue('top');
+        faceLeftCSS = getComputedStyle(face).getPropertyValue('left');
+        faceTopCSS = getComputedStyle(face).getPropertyValue('top');
       if ((parseInt(bobTop,10) === parseInt(enemyTopCSS,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS,10)) || (parseInt(bobTop,10) === parseInt(enemyTopCSS2,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS2,10)) || (parseInt(bobTop,10) === parseInt(enemyTopCSS3,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS3,10)) || (parseInt(bobTop,10) === parseInt(enemyTopCSS4,10) && parseInt(bobLeft,10) === parseInt(enemyLeftCSS4,10))) {
         console.log("Game over"); //game over section
-        console.log(bobTop + " " + bobLeft + " " + enemyTopCSS + " " + enemyLeftCSS);
       gameOver();
       //end game over section
       }
       } 
       },80);
+    //hi
+      function FastButton(element, handler) {
+            this.element = element;
+            this.handler = handler;
+            element.addEventListener('touchstart', this, false);
+         };
+         FastButton.prototype.handleEvent = function(event) {
+            switch (event.type) {
+               case 'touchstart': this.onTouchStart(event); break;
+               case 'touchmove': this.onTouchMove(event); break;
+               case 'touchend': this.onClick(event); break;
+               case 'click': this.onClick(event); break;
+            }
+         };
+         FastButton.prototype.onTouchStart = function(event) {
+            event.stopPropagation();
+            this.element.addEventListener('touchend', this, false);
+            document.body.addEventListener('touchmove', this, false);
+            this.startX = event.touches[0].clientX;
+            this.startY = event.touches[0].clientY;
+            this.element.style.backgroundColor = "rgba(0,0,0,.7)";
+         };
+         FastButton.prototype.onTouchMove = function(event) {
+            if(Math.abs(event.touches[0].clientX - this.startX) > 10 || Math.abs(event.touches[0].clientY - this.startY) > 10) {
+               this.reset();
+            }
+         };
+         FastButton.prototype.onClick = function(event) {
+            event.stopPropagation();
+            this.reset();
+            this.handler(event);
+            if(event.type == 'touchend') {
+               preventGhostClick(this.startX, this.startY);
+            }
+            this.element.style.backgroundColor = "";
+         };
+         FastButton.prototype.reset = function() {
+            this.element.removeEventListener('touchend', this, false);
+            document.body.removeEventListener('touchmove', this, false);
+            this.element.style.backgroundColor = "";
+         };
+         function preventGhostClick(x, y) {
+            coordinates.push(x, y);
+            window.setTimeout(gpop, 2500);
+         };
+         function gpop() {
+            coordinates.splice(0, 2);
+         };
+         function gonClick(event) {
+            for(var i = 0; i < coordinates.length; i += 2) {
+               var x = coordinates[i];
+               var y = coordinates[i + 1];
+               if(Math.abs(event.clientX - x) < 25 && Math.abs(event.clientY - y) < 25) {
+                  event.stopPropagation();
+                  event.preventDefault();
+               }
+            }
+         };
+         document.addEventListener('click', gonClick, true);
+         var coordinates = [];
+         function initFastButtons() {
+            new FastButton(document.getElementById("btn0"), goSomewhere);
+         };
+         function goSomewhere() {
+            document.getElementById("clicklog").innerHTML = document.getElementById("clicklog").innerHTML + " Tap. ";
+         };
+      </script>
+   </head>
+   <body onload="initFastButtons();">
+      <div id="clicklog" style="width:200px;height:200px;">
+      </div>
+      <button id="btn0" style="width:100px;height:50px;">Button</button>
+    //stink
   </script>
 </body>
 </html>
