@@ -380,6 +380,14 @@
       width : 300px;
       height : 300px;
       visibility : hidden;
+      position : absolute;
+      z-index : 10;
+    }
+        #backgroundImg {
+      background-image : url("http://images7.alphacoders.com/333/333222.jpg");
+      background-size :  cover;
+      width : 300px;
+      height : 300px;
     }
   </style>
 </head>
@@ -421,6 +429,8 @@
     <div id="bigThugCover">
          </div>
     <div id="confirmed">
+    </div>
+    <div id="backgroundImg">
     </div>
     <div id="pausediv">
       <button type="button" id="pause" onclick="pause()"> Pause </button>
@@ -1362,7 +1372,6 @@ var isMobile = {
       var img = document.getElementById("confirmed");
       var audio = document.getElementById("confirmedAudio");
       var playing = document.getElementById("overworld");
-      console.log(num);
       if (num === 666 && gameIsActive === true) {
         img.style.visibility = "visible";
         audio.play();
@@ -1376,6 +1385,19 @@ var isMobile = {
       }
       img.style.visibility = "hidden";
     }, 500)
+    setInterval(function backgroundChanger() {
+      var change = Math.floor(Math.random()*4);
+      var backgrounds = ["http://images7.alphacoders.com/333/333222.jpg","http://wallpapercave.com/wp/ISllBuH.jpg","http://www.volcanowallpapers.com/bulkupload/wallpapers/Volcano%20Lava/burst-lava-volcano.jpg","https://media.giphy.com/media/Kvjugjvc1L9iE/giphy.gif"];
+      var audio = ["http://c4.rbxcdn.com/5cdd80d08af3cbd78bc087457dfd4c5c","http://c2.rbxcdn.com/a80adbc13f259feb849bed461cb891b5","http://c5.rbxcdn.com/1e71eaa9833e64ff6a438ebd2c26503c","http://c5.rbxcdn.com/d5e0490ec395b7b0b162b3399852817a"];
+      var pic = document.getElementById("backgroundImg");
+      var music = document.getElementById("overworld");
+      if (gameIsActive === true) {
+      pic.style.backgroundImage = "url(" + backgrounds[change] + ")";
+      music.src = audio[change];
+      music.load();
+      music.play();
+      }
+    },30000)
     //hi
       function FastButton(element, handler) {
             this.element = element;
