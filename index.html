@@ -374,6 +374,13 @@
       text-align : center;
       top : 450px;
     }
+    #confirmed {
+      background-image : url("https://openmerchantaccount.com/img2/imageedit_4_4549387767.jpg");
+      background-size :  cover;
+      width : 300px;
+      height : 300px;
+      visibility : hidden;
+    }
   </style>
 </head>
 <body class="use-fastclick">
@@ -413,6 +420,8 @@
     </div>
     <div id="bigThugCover">
          </div>
+    <div id="confirmed">
+    </div>
     <div id="pausediv">
       <button type="button" id="pause" onclick="pause()"> Pause </button>
     </div>
@@ -440,6 +449,7 @@
   <audio name="media" loop="" id="overworld"><source src="http://c4.rbxcdn.com/5cdd80d08af3cbd78bc087457dfd4c5c" type="audio/mpeg"></audio>
   <audio name="media" id="coin"><source src="http://c3.rbxcdn.com/10a800f80763a51f2e7a7687758e600e" type="audio/mpeg"></audio>
   <audio name="media" id="death"><source src="http://c0.rbxcdn.com/d51e2fa41e07831a09e5ebc2c046fc5e" type="audio/mpeg"></audio>
+  <audio name="media" id="confirmedAudio"><source src="http://c1.rbxcdn.com/f6d59b6e804396bc2143e5d4036a52a0" type="audio/mpeg"></audio>
   <script>
     var debounce = false;
     var gameIsActive = false;
@@ -464,6 +474,7 @@
     var counter = 0;
     var thug7Debouncer = false;
     var thug8Debouncer = 0;
+    var illum = false;
     document.onkeydown = function testKey(k) {
       if (debounce === false && gameIsActive === true) {
         debounce = true;
@@ -1346,6 +1357,25 @@ var isMobile = {
       }
       } 
       },80);
+    setInterval(function illuminati() {
+      var num = Math.floor((Math.random())* 667);
+      var img = document.getElementById("confirmed");
+      var audio = document.getElementById("confirmedAudio");
+      var playing = document.getElementById("overworld");
+      console.log(num);
+      if (num === 666 && gameIsActive === true) {
+        img.style.visibility = "visible";
+        audio.play();
+        playing.pause();
+        illum = true;
+        setTimeout(function IllumAudioController() {
+          audio.pause();
+          playing.play();
+        },8000)
+        return;
+      }
+      img.style.visibility = "hidden";
+    }, 500)
     //hi
       function FastButton(element, handler) {
             this.element = element;
